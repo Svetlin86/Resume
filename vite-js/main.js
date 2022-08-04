@@ -41,14 +41,6 @@ function render(time) {
   }
 }
 
-// Torus
-
-// const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-// const material = new THREE.MeshStandardMaterial({ color: 0x61dbfb });
-// const torus = new THREE.Mesh(geometry, material);
-
-// scene.add(torus);
-
 // Lights
 
 const pointLight = new THREE.PointLight(0xffffff);
@@ -66,7 +58,8 @@ scene.add(pointLight, ambientLight);
 // const controls = new OrbitControls(camera, renderer.domElement);
 
 function addStar() {
-  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+  
+  const geometry = new THREE.SphereGeometry(0.05, 24, 24);
   const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
   const star = new THREE.Mesh(geometry, material);
 
@@ -78,7 +71,7 @@ function addStar() {
   scene.add(star);
 }
 
-Array(200).fill().forEach(addStar);
+Array(5000).fill().forEach(addStar);
 
 // Background
 
@@ -114,8 +107,9 @@ const moon = new THREE.Mesh(
 
 scene.add(moon);
 
-moon.position.z = 30;
+moon.position.z = 45;
 moon.position.setX(-10);
+
 
 
 
@@ -127,8 +121,8 @@ function moveCamera() {
   moon.rotation.y += 0.015;
   moon.rotation.z += 0.01;
 
-  svetlin.rotation.y += 0.01;
-  svetlin.rotation.z += 0.00;
+  // svetlin.rotation.y += 0.01;
+  // svetlin.rotation.z += 0.00;
 
   camera.position.z = t * -0.01;
   camera.position.x = t * -0.0002;
@@ -144,13 +138,7 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
  
-  svetlin.rotation.y += 0.005;
- 
- 
-  // torus.rotation.x += 0.01;
-  // torus.rotation.y += 0.005;
-  // torus.rotation.z += 0.01;
-
+  // svetlin.rotation.y += 0.005;
   moon.rotation.x += 0.0005;
 
   // controls.update();
