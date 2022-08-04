@@ -19,6 +19,28 @@ camera.position.setX(-3);
 
 renderer.render(scene, camera);
 
+// Responsive layout
+function resizeRendererToDisplaySize(renderer) {
+  const canvas = renderer.domElement;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  const needResize = canvas.width !== width || canvas.height !== height;
+  if (needResize) {
+    renderer.setSize(width, height, false);
+  }
+  return needResize;
+}
+
+function render(time) {
+  time *= 0.001;
+ 
+  if (resizeRendererToDisplaySize(renderer)) {
+    const canvas = renderer.domElement;
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.updateProjectionMatrix();
+  }
+}
+
 // Torus
 
 // const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
@@ -70,41 +92,40 @@ const svetlinTexture = new THREE.TextureLoader().load('svetlin.jpg');
 
 const svetlin = new THREE.Mesh(new THREE.CircleGeometry( 2, 32 ), new THREE.MeshBasicMaterial({ map: svetlinTexture , side: THREE.DoubleSide}));
 
-svetlin.position.z = -7;
-svetlin.position.x = 5;
-svetlin.position.y = 0.5;
+svetlin.position.z = -6;
+svetlin.position.x = -3;
+svetlin.position.y = 0.4;
 
 
 scene.add(svetlin);
 
 // Moon
 
-// const moonTexture = new THREE.TextureLoader().load('moon.jpg');
-// const normalTexture = new THREE.TextureLoader().load('normal.jpg');
+const moonTexture = new THREE.TextureLoader().load('moon.jpg');
+const normalTexture = new THREE.TextureLoader().load('normal.jpg');
 
-// const moon = new THREE.Mesh(
-//   new THREE.SphereGeometry(3, 32, 32),
-//   new THREE.MeshStandardMaterial({
-//     map: moonTexture,
-//     normalMap: normalTexture,
-//   })
-// );
+const moon = new THREE.Mesh(
+  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.MeshStandardMaterial({
+    map: moonTexture,
+    normalMap: normalTexture,
+  })
+);
 
-// scene.add(moon);
+scene.add(moon);
 
-// moon.position.z = 30;
-// moon.position.setX(-10);
+moon.position.z = 30;
+moon.position.setX(-10);
 
-// svetlin.position.z = -5;
-// svetlin.position.x = 2;
+
 
 // Scroll Animation
 
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
-  // moon.rotation.x += 0.05;
-  // moon.rotation.y += 0.075;
-  // moon.rotation.z += 0.05;
+  moon.rotation.x += 0.01;
+  moon.rotation.y += 0.015;
+  moon.rotation.z += 0.01;
 
   svetlin.rotation.y += 0.01;
   svetlin.rotation.z += 0.00;
@@ -117,18 +138,20 @@ function moveCamera() {
 document.body.onscroll = moveCamera;
 moveCamera();
 
+
 // Animation Loop
 
 function animate() {
   requestAnimationFrame(animate);
  
-  svetlin.rotation.y += 0.01;
+  svetlin.rotation.y += 0.005;
+ 
  
   // torus.rotation.x += 0.01;
   // torus.rotation.y += 0.005;
   // torus.rotation.z += 0.01;
 
-  // moon.rotation.x += 0.005;
+  moon.rotation.x += 0.0005;
 
   // controls.update();
 
