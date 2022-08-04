@@ -16,6 +16,15 @@ canvas {
   font-style: normal;
 }
 
+a {
+  font-family: elevon, sans-serif;
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+ color: #007bb8;
+}
+
 @media (max-width:1200px) {
 main {
   width: 100vw;
