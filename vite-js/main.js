@@ -71,7 +71,7 @@ function addStar() {
   scene.add(star);
 }
 
-Array(5000).fill().forEach(addStar);
+Array(1000).fill().forEach(addStar);
 
 // Background
 
